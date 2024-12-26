@@ -1,6 +1,16 @@
 {
+  "type": "module",
   "packageManager": "yarn@4.5.3",
+  "scripts": {
+    "build": "yarn vite build"
+  },
   "devDependencies": {
+    "@types/node": "^22.10.2",
     "vite": "^6.0.6"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
   }
 }

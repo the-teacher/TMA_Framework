@@ -24,6 +24,18 @@ backend_update_yarn:
 backend_install_vite:
 	docker-compose --file docker/docker-compose.yml exec --workdir /app/_Backend app yarn add -D vite 
 
+backend_install_1:
+	docker-compose --file docker/docker-compose.yml exec --workdir /app/_Backend app yarn add express cors cookie-parser @types/node
+
+backend_install_2:
+	docker-compose --file docker/docker-compose.yml exec --workdir /app/_Backend app yarn add -D @types/node
+
+backend_vite_build:
+	docker-compose --file docker/docker-compose.yml exec --workdir /app/_Backend app yarn vite build
+
+backend_build:
+	docker-compose --file docker/docker-compose.yml exec --workdir /app/_Backend app yarn build
+
 ##############################################
 # FRONTEND
 ##############################################
