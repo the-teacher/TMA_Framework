@@ -1,17 +1,17 @@
 ## FrameworkJS
 
-A simple framework for building web applications with Node.js.
+Простой фреймворк для создания веб-приложений на Node.js.
 
-### Project Structure
+### Структура проекта
 
-- **\_\_contracts**: API contracts and schemas.
-- **\_Backend**: Backend code.
-- **\_Bot**: Telegram bot code.
-- **\_Frontend**: Web interface code.
-- **data**: Data storage.
-- **logs**: Application logs.
-- **shared**: Shared modules.
-- **tmp**: Temporary files.
-- **Makefile**: Task automation: build, test, run.
-- **README.md**: Documentation in English.
-- **README.ru.md**: Documentation in Russian.
+- **\_\_contracts**: API-контракты и схемы.
+- **\_Backend**: Код серверной части.
+- **\_Bot**: Код Telegram-бота.
+- **\_Frontend**: Веб-интерфейс приложения.
+- **data**: Хранилище данных.
+- **logs**: Логи приложения.
+- **shared**: Общие модули.
+- **tmp**: Временные файлы.
+- **Makefile**: Автоматизация задач: сборка, тесты, запуск.
+- **README.md**: Документация на английском.
+- **README.ru.md**: Документация на русском
