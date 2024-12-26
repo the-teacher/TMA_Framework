@@ -1,8 +1,9 @@
 import { Router } from "express";
 import path from "path";
 
-let globalRouter: Router | null = null;
+let globalRouter: Router = null as unknown as Router;
 
+// Do we need it?
 const initRouter = () => {
   if (!globalRouter) {
     globalRouter = Router();

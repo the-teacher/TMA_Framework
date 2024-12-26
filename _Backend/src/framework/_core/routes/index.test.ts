@@ -1,4 +1,4 @@
-import { Router, Request, Response } from "express";
+import express, { Request, Response } from "express";
 import request from "supertest";
 import { root, get, post, getRouter } from "./index";
 
@@ -23,7 +23,7 @@ describe("Routes", () => {
 
   test("root route should map to the correct controller action", async () => {
     root("Test#testAction");
-    const app = Router();
+    const app = express();
     app.use(getRouter());
 
     const response = await request(app).get("/");
@@ -33,7 +33,7 @@ describe("Routes", () => {
 
   test("GET route should map to the correct controller action", async () => {
     get("/test", "Test#testAction");
-    const app = Router();
+    const app = express();
     app.use(getRouter());
 
     const response = await request(app).get("/test");
@@ -43,7 +43,7 @@ describe("Routes", () => {
 
   test("POST route should map to the correct controller action", async () => {
     post("/test", "Test#testAction");
-    const app = Router();
+    const app = express();
     app.use(getRouter());
 
     const response = await request(app).post("/test");
