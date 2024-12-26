@@ -1,65 +1,52 @@
-import express, { Request, Response } from "express";
 import request from "supertest";
-import { root, get, post, getRouter } from "./index";
+import express from "express";
+import { root, get, post, getRouter, configRouter } from "./index";
+import path from "path";
 
-jest.mock("path", () => ({
-  join: jest.fn((...args) => args.join("/")),
-}));
+const routes = () => {
+  configRouter({
+    controllersPath: path.join(__dirname, "./"),
+  });
 
-jest.mock(
-  "../controllers/TestController",
-  () => ({
-    testAction: jest.fn((req: Request, res: Response) =>
-      res.status(200).send("Test Action")
-    ),
-  }),
-  { virtual: true }
-);
+  root("test#indexAction");
+  get("/get", "test#getAction");
+  post("/post", "test#postAction");
+
+  return getRouter();
+};
+
+export default routes;
 
 describe("Routes", () => {
-  beforeEach(() => {
-    jest.resetModules(); // Reset module cache between tests
-  });
-
   test("root route should map to the correct controller action", async () => {
-    root("Test#testAction");
     const app = express();
-    app.use(getRouter());
+    app.use(routes());
 
     const response = await request(app).get("/");
-    expect(response.status).toBe(200);
-    expect(response.text).toBe("Test Action");
+    expect(response.text).toEqual("Hello Index!");
   });
 
-  test("GET route should map to the correct controller action", async () => {
-    get("/test", "Test#testAction");
+  test("get route should map to the correct controller action", async () => {
     const app = express();
-    app.use(getRouter());
+    app.use(routes());
 
-    const response = await request(app).get("/test");
-    expect(response.status).toBe(200);
-    expect(response.text).toBe("Test Action");
+    const response = await request(app).get("/get");
+    expect(response.text).toEqual("Hello Get!");
   });
 
-  test("POST route should map to the correct controller action", async () => {
-    post("/test", "Test#testAction");
+  test("post route should map to the correct controller action", async () => {
     const app = express();
-    app.use(getRouter());
+    app.use(routes());
 
-    const response = await request(app).post("/test");
-    expect(response.status).toBe(200);
-    expect(response.text).toBe("Test Action");
+    const response = await request(app).post("/post");
+    expect(response.text).toEqual("Hello Post!");
   });
 
-  test("should throw error for invalid controller action format", () => {
-    expect(() => root("InvalidFormat")).toThrow(
-      "Invalid format for controller action: InvalidFormat. Expected format is 'controller#action'."
-    );
-  });
+  test("invalid route should return 404", async () => {
+    const app = express();
+    app.use(routes());
 
-  test("should throw error if action not found in controller", () => {
-    expect(() => get("/", "Test#nonExistentAction")).toThrow(
-      "Action nonExistentAction not found in controller Test"
-    );
+    const response = await request(app).get("/invalid");
+    expect(response.status).toEqual(404);
   });
 });

@@ -1,9 +1,18 @@
-import { root, get, post, getRouter } from "@framework-core/routes";
+import path from "path";
 
-// Warning: The order of the routes is important
-// Specific routes first
-// General routes last
+import {
+  root,
+  get,
+  post,
+  getRouter,
+  configRouter,
+} from "@framework-core/routes";
+
 const routes = () => {
+  configRouter({
+    controllersPath: path.join(__dirname, "../controllers"),
+  });
+
   root("index#index");
   get("/index", "index#index");
   post("/index", "index#index");

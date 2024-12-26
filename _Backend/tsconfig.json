@@ -5,6 +5,10 @@
     "moduleResolution": "Node",
     "outDir": "./dist",
     "esModuleInterop": true,
-    "strict": true
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "@framework-core/*": ["src/framework/_core/*"]
+    }
   }
 }

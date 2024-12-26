@@ -2,6 +2,7 @@ import { Router } from "express";
 import path from "path";
 
 let globalRouter: Router = null as unknown as Router;
+let controllersPath: string = "../controllers";
 
 // Do we need it?
 const initRouter = () => {
@@ -10,13 +11,18 @@ const initRouter = () => {
   }
 };
 
+export const configRouter = (config: { controllersPath: string }) =>
+  (controllersPath = config.controllersPath);
+
+const requireController = (controllerPath: string) => require(controllerPath);
+
+const buildControllerPath = (controllerName: string) =>
+  path.join(controllersPath, `${controllerName}Controller`);
+
 const loadController = (controllerName: string, action: string) => {
-  const controllerPath = path.join(
-    __dirname,
-    "../controllers",
-    `${controllerName}Controller`
-  );
-  const controller = require(controllerPath);
+  const controllerPath = buildControllerPath(controllerName);
+  const controller = requireController(controllerPath);
+
   if (controller[action]) {
     return controller[action];
   } else {
