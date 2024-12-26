@@ -21,6 +21,9 @@ backend_shell:
 backend_update_yarn:
 	docker-compose --file docker/docker-compose.yml exec --workdir /app/_Backend app yarn set version berry
 
+backend_install_vite:
+	docker-compose --file docker/docker-compose.yml exec --workdir /app/_Backend app yarn add -D vite 
+
 ##############################################
 # FRONTEND
 ##############################################
