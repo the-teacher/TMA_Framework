@@ -18,6 +18,9 @@ down:
 backend_shell:
 	docker-compose --file docker/docker-compose.yml exec --workdir /app/_Backend app bash
 
+backend_update_yarn:
+	docker-compose --file docker/docker-compose.yml exec --workdir /app/_Backend app yarn set version berry
+
 ##############################################
 # FRONTEND
 ##############################################
