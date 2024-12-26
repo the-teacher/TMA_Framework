@@ -1,7 +1,7 @@
 import { Router } from "express";
 import path from "path";
 
-let globalRouter = null;
+let globalRouter: Router | null = null;
 
 const initRouter = () => {
   if (!globalRouter) {
@@ -25,7 +25,7 @@ const loadController = (controllerName: string, action: string) => {
   }
 };
 
-const parseControllerString = (controllerActionString) => {
+const parseControllerString = (controllerActionString: string) => {
   const [controller, action] = controllerActionString.split("#");
   if (!controller || !action) {
     throw new Error(
@@ -35,7 +35,7 @@ const parseControllerString = (controllerActionString) => {
   return { controller, action };
 };
 
-export const root = (controllerAction) => {
+export const root = (controllerAction: string) => {
   initRouter();
 
   const { controller, action } =
@@ -43,10 +43,10 @@ export const root = (controllerAction) => {
       ? parseControllerString(controllerAction)
       : controllerAction;
 
-  globalRouter.get("/", loadController(controller, action));
+  globalRouter!.get("/", loadController(controller, action));
 };
 
-export const get = (urlPath, controllerAction) => {
+export const get = (urlPath: string, controllerAction: string) => {
   initRouter();
   // console.log('get', urlPath, controllerAction);
   const { controller, action } =
@@ -54,10 +54,10 @@ export const get = (urlPath, controllerAction) => {
       ? parseControllerString(controllerAction)
       : controllerAction;
 
-  globalRouter.get(urlPath, loadController(controller, action));
+  globalRouter!.get(urlPath, loadController(controller, action));
 };
 
-export const post = (urlPath, controllerAction) => {
+export const post = (urlPath: string, controllerAction: string) => {
   initRouter();
 
   const { controller, action } =
@@ -65,7 +65,7 @@ export const post = (urlPath, controllerAction) => {
       ? parseControllerString(controllerAction)
       : controllerAction;
 
-  globalRouter.post(urlPath, loadController(controller, action));
+  globalRouter!.post(urlPath, loadController(controller, action));
 };
 
 export const getRouter = () => globalRouter;
