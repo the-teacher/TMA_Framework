@@ -31,7 +31,10 @@ backend_install_1:
 	docker-compose --file docker/docker-compose.yml exec --workdir /app/_Backend app yarn add express cors cookie-parser @types/node
 
 backend_install_2:
-	docker-compose --file docker/docker-compose.yml exec --workdir /app/_Backend app yarn add -D @types/node
+	docker-compose --file docker/docker-compose.yml exec --workdir /app/_Backend app yarn add -D @types/node @types/express @types/cors @types/cookie-parser
+
+backend_install_3:
+	docker-compose --file docker/docker-compose.yml exec --workdir /app/_Backend app yarn add -D jest ts-jest @types/jest supertest @types/supertest @types/mocha
 
 backend_vite_build:
 	docker-compose --file docker/docker-compose.yml exec --workdir /app/_Backend app yarn vite build
