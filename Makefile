@@ -11,6 +11,9 @@ shell:
 down:
 	docker-compose --file docker/docker-compose.yml down
 
+status:
+	docker-compose --file docker/docker-compose.yml ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}"
+
 ##############################################
 # BACKEND
 ##############################################

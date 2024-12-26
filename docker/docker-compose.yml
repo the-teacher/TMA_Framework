@@ -1,3 +1,5 @@
+name: tma_framework
+
 services:
   app:
     image: node:22
