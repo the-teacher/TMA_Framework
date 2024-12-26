@@ -1,0 +1,14 @@
+services:
+  app:
+    image: node:22
+    command: sleep infinity
+    working_dir: /app
+    volumes:
+      - ../__contracts:/app/__contracts
+      - ../_Backend:/app/_Backend
+      - ../_Frontend:/app/_Frontend
+      - ../_Bot:/app/_Bot
+      - ../data:/app/data
+      - ../logs:/app/logs
+      - ../shared:/app/shared
+      - ../tmp:/app/tmp

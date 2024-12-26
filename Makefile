@@ -1,3 +1,34 @@
+##############################################
+# COMMON
+##############################################
+
+up:
+	docker-compose --file docker/docker-compose.yml up -d
+
+shell:
+	docker-compose --file docker/docker-compose.yml exec app bash
+
+down:
+	docker-compose --file docker/docker-compose.yml down
+
+##############################################
+# BACKEND
+##############################################
+
+backend_shell:
+	docker-compose --file docker/docker-compose.yml exec --workdir /app/_Backend app bash
+
+##############################################
+# FRONTEND
+##############################################
+
+frontend_shell:
+	docker-compose --file docker/docker-compose.yml exec --workdir /app/_Frontend app bash
+
+##############################################
+# FREAMEWORK STRUCTURE
+##############################################
+
 file_structure: ## Create file structure
 	touch .gitignore Makefile README.md README.ru.md
 	mkdir -p _Backend _Bot _Frontend __contracts data logs shared tmp
