@@ -1,7 +1,7 @@
+import path from "path";
 import request from "supertest";
 import express from "express";
 import { root, get, post, getRouter, setRouterCotrollersPath } from "./index";
-import path from "path";
 
 const routes = () => {
   setRouterCotrollersPath(path.join(__dirname, "."));

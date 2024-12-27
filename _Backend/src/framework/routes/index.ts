@@ -5,13 +5,11 @@ import {
   get,
   post,
   getRouter,
-  configRouter,
+  setRouterCotrollersPath,
 } from "@framework-core/routes";
 
 const routes = () => {
-  configRouter({
-    controllersPath: path.join(__dirname, "../controllers"),
-  });
+  setRouterCotrollersPath(path.join(__dirname, "../controllers"));
 
   root("index#index");
   get("/index", "index#index");

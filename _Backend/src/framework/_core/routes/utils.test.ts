@@ -1,4 +1,7 @@
 import { parseControllerString } from "./utils";
+import path from "path";
+import { buildControllerPath, loadController } from "./utils";
+import { setRouterCotrollersPath } from "./routerCore";
 
 describe("parseControllerString", () => {
   test("should correctly parse a valid controller action string", () => {
@@ -47,5 +50,51 @@ describe("parseControllerString", () => {
     }).toThrow(
       "Invalid format for controller action: usercreate. Expected format is 'controller#action'."
     );
+  });
+});
+
+describe("buildControllerPath", () => {
+  beforeEach(() => {
+    setRouterCotrollersPath(path.join(__dirname, "."));
+  });
+
+  test("should build correct controller path", () => {
+    const controllerName = "test";
+    const expectedPath = path.join(__dirname, ".", "testController");
+
+    const result = buildControllerPath(controllerName);
+    expect(result).toBe(expectedPath);
+  });
+});
+
+describe("loadController", () => {
+  beforeEach(() => {
+    setRouterCotrollersPath(path.join(__dirname, "."));
+  });
+
+  test("should load existing controller action", () => {
+    const controllerName = "test";
+    const action = "indexAction";
+
+    const controller = loadController(controllerName, action);
+    expect(typeof controller).toBe("function");
+  });
+
+  test("should throw error when action doesn't exist", () => {
+    const controllerName = "test";
+    const action = "nonExistentAction";
+
+    expect(() => {
+      loadController(controllerName, action);
+    }).toThrow(`Action ${action} not found in controller ${controllerName}`);
+  });
+
+  test("should throw error when controller doesn't exist", () => {
+    const controllerName = "nonExistent";
+    const action = "indexAction";
+
+    expect(() => {
+      loadController(controllerName, action);
+    }).toThrow(/Cannot find module/);
   });
 });
