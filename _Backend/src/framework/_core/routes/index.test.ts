@@ -3,17 +3,15 @@ import request from "supertest";
 import express from "express";
 import { root, get, post, getRouter, setRouterCotrollersPath } from "./index";
 
-const defineRoutes = () => {
-  setRouterCotrollersPath(path.join(__dirname, "."));
-
-  root("test#indexAction");
-  get("/get", "test#getAction");
-  post("/post", "test#postAction");
-};
-
-defineRoutes();
-
 describe("Routes", () => {
+  beforeAll(() => {
+    setRouterCotrollersPath(path.join(__dirname, "."));
+
+    root("test#indexAction");
+    get("/get", "test#getAction");
+    post("/post", "test#postAction");
+  });
+
   test("should return the correct response for the root route", async () => {
     const app = express();
     app.use(getRouter());
