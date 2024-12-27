@@ -1,12 +1,10 @@
 import request from "supertest";
 import express from "express";
-import { root, get, post, getRouter, configRouter } from "./index";
+import { root, get, post, getRouter, setRouterCotrollersPath } from "./index";
 import path from "path";
 
 const routes = () => {
-  configRouter({
-    controllersPath: path.join(__dirname, "./"),
-  });
+  setRouterCotrollersPath(path.join(__dirname, "."));
 
   root("test#indexAction");
   get("/get", "test#getAction");
