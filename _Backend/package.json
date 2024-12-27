@@ -2,7 +2,8 @@
   "type": "module",
   "packageManager": "yarn@4.5.3",
   "scripts": {
-    "build": "yarn vite build"
+    "build": "yarn vite build",
+    "test": "yarn jest"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",

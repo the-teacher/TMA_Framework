@@ -15,10 +15,8 @@ const routes = () => {
   return getRouter();
 };
 
-export default routes;
-
 describe("Routes", () => {
-  test("root route should map to the correct controller action", async () => {
+  test("should return the correct response for the root route", async () => {
     const app = express();
     app.use(routes());
 
@@ -26,7 +24,7 @@ describe("Routes", () => {
     expect(response.text).toEqual("Hello Index!");
   });
 
-  test("get route should map to the correct controller action", async () => {
+  test("should return the correct response for the GET /get route", async () => {
     const app = express();
     app.use(routes());
 
@@ -34,7 +32,7 @@ describe("Routes", () => {
     expect(response.text).toEqual("Hello Get!");
   });
 
-  test("post route should map to the correct controller action", async () => {
+  test("should return the correct response for the POST /post route", async () => {
     const app = express();
     app.use(routes());
 
@@ -42,7 +40,7 @@ describe("Routes", () => {
     expect(response.text).toEqual("Hello Post!");
   });
 
-  test("invalid route should return 404", async () => {
+  test("should return 404 for an invalid route", async () => {
     const app = express();
     app.use(routes());
 

@@ -1,5 +1,6 @@
-import { Router } from "express";
 import path from "path";
+import { Router } from "express";
+import { parseControllerString } from "./utils";
 
 let globalRouter: Router = null as unknown as Router;
 let controllersPath: string = "../controllers";
@@ -32,16 +33,6 @@ const loadController = (controllerName: string, action: string) => {
   }
 };
 
-const parseControllerString = (controllerActionString: string) => {
-  const [controller, action] = controllerActionString.split("#");
-  if (!controller || !action) {
-    throw new Error(
-      `Invalid format for controller action: ${controllerActionString}. Expected format is 'controller#action'.`
-    );
-  }
-  return { controller, action };
-};
-
 export const root = (controllerAction: string) => {
   initRouter();
 
@@ -55,7 +46,7 @@ export const root = (controllerAction: string) => {
 
 export const get = (urlPath: string, controllerAction: string) => {
   initRouter();
-  // console.log('get', urlPath, controllerAction);
+
   const { controller, action } =
     typeof controllerAction === "string"
       ? parseControllerString(controllerAction)
