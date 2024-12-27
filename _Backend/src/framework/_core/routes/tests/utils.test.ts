@@ -1,7 +1,17 @@
-import { parseControllerString } from "../utils";
 import path from "path";
-import { buildControllerPath, loadController } from "../utils";
-import { setRouterCotrollersPath, resetRouter } from "../index";
+
+import {
+  parseControllerString,
+  buildControllerPath,
+  loadController,
+} from "../utils";
+
+import {
+  getRouterCotrollersPath,
+  setRouterCotrollersPath,
+  getRouter,
+  resetRouter,
+} from "../index";
 
 describe("parseControllerString", () => {
   beforeEach(() => {
@@ -97,5 +107,21 @@ describe("loadController", () => {
     expect(() => {
       loadController(controllerName, action);
     }).toThrow(/Cannot find module/);
+  });
+});
+
+describe("resetRouter", () => {
+  test("should reset router and controllers path", () => {
+    const initialRouter = getRouter();
+    const customPath = path.join(__dirname, "custom/path");
+
+    setRouterCotrollersPath(customPath);
+    expect(getRouterCotrollersPath()).toBe(customPath);
+
+    resetRouter();
+
+    const newRouter = getRouter();
+    expect(newRouter).not.toBe(initialRouter);
+    expect(getRouterCotrollersPath()).toBe("../controllers");
   });
 });
