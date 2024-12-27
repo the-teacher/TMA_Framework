@@ -4,7 +4,10 @@ export let globalRouter: Router | null = null;
 export let controllersPath: string = "../controllers";
 
 export const getRouter = () => {
-  globalRouter ? globalRouter : (globalRouter = Router());
+  if (!globalRouter) {
+    globalRouter = Router();
+  }
+
   return globalRouter;
 };
 
