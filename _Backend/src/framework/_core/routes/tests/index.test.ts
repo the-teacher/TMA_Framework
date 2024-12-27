@@ -1,13 +1,22 @@
 import path from "path";
 import request from "supertest";
 import express from "express";
-import { root, get, post, getRouter, setRouterCotrollersPath } from "./index";
+
+import {
+  root,
+  get,
+  post,
+  getRouter,
+  setRouterCotrollersPath,
+  resetRouter,
+} from "../index";
 
 describe("Routes", () => {
   beforeAll(() => {
-    setRouterCotrollersPath(path.join(__dirname, "."));
+    setRouterCotrollersPath(path.join(__dirname, "./test_controllers"));
 
     root("test#indexAction");
+
     get("/get", "test#getAction");
     post("/post", "test#postAction");
   });

@@ -1,4 +1,10 @@
-import { getRouter, setRouterCotrollersPath } from "./routerCore";
+import {
+  getRouter,
+  getRouterCotrollersPath,
+  setRouterCotrollersPath,
+  resetRouter,
+} from "./routerCore";
+
 import { parseControllerString, loadController } from "./utils";
 
 export const root = (controllerAction: string) => {
@@ -28,4 +34,9 @@ export const post = (urlPath: string, controllerAction: string) => {
   getRouter().post(urlPath, loadController(controller, action));
 };
 
-export { getRouter, setRouterCotrollersPath };
+export {
+  getRouter,
+  getRouterCotrollersPath,
+  setRouterCotrollersPath,
+  resetRouter,
+};

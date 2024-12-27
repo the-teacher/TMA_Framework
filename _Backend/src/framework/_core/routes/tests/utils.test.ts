@@ -1,9 +1,13 @@
-import { parseControllerString } from "./utils";
+import { parseControllerString } from "../utils";
 import path from "path";
-import { buildControllerPath, loadController } from "./utils";
-import { setRouterCotrollersPath } from "./routerCore";
+import { buildControllerPath, loadController } from "../utils";
+import { setRouterCotrollersPath, resetRouter } from "../index";
 
 describe("parseControllerString", () => {
+  beforeEach(() => {
+    setRouterCotrollersPath(path.join(__dirname, "./test_controllers"));
+  });
+
   test("should correctly parse a valid controller action string", () => {
     const input = "user#create";
     const expected = { controller: "user", action: "create" };
@@ -54,13 +58,14 @@ describe("parseControllerString", () => {
 });
 
 describe("buildControllerPath", () => {
-  beforeEach(() => {
-    setRouterCotrollersPath(path.join(__dirname, "."));
-  });
-
   test("should build correct controller path", () => {
     const controllerName = "test";
-    const expectedPath = path.join(__dirname, ".", "testController");
+    const expectedPath = path.join(
+      __dirname,
+      ".",
+      "test_controllers",
+      "testController"
+    );
 
     const result = buildControllerPath(controllerName);
     expect(result).toBe(expectedPath);
@@ -68,10 +73,6 @@ describe("buildControllerPath", () => {
 });
 
 describe("loadController", () => {
-  beforeEach(() => {
-    setRouterCotrollersPath(path.join(__dirname, "."));
-  });
-
   test("should load existing controller action", () => {
     const controllerName = "test";
     const action = "indexAction";
