@@ -1,6 +1,6 @@
-# Express Router
+# `FrameworkJS` Router
 
-A simple yet powerful routing solution for Express.js applications that provides a clean and intuitive way to organize routes and controllers.
+A simple yet powerful routing solution for `Express.js` applications that provides a clean and intuitive way to organize routes and controllers.
 
 ## Features
 
@@ -79,11 +79,11 @@ Example controller:
 // controllers/usersController.ts
 import { Request, Response } from "express";
 
-export const showAction = (req: Request, res: Response) => {
+export const show = (req: Request, res: Response) => {
   res.send("Users list");
 };
 
-export const updateAction = (req: Request, res: Response) => {
+export const update = (req: Request, res: Response) => {
   res.send("User updated");
 };
 ```
