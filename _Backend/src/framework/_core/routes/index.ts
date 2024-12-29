@@ -5,7 +5,7 @@ import {
   setRouterCotrollersPath,
   resetRouter,
   routeScope,
-} from "./routerCore";
+} from "./base";
 
 import { parseControllerString, loadController } from "./utils";
 

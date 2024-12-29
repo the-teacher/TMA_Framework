@@ -2,7 +2,7 @@ import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
-import routes from "./framework/routes";
+import getRoutes from "./framework/routes";
 
 const port = process.env.BACKEND_PORT || 4000;
 
@@ -26,7 +26,7 @@ app.use(
 app.use(requestLogger);
 app.use(cookieParser());
 app.use(express.json());
-app.use(routes());
+app.use(getRoutes());
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);

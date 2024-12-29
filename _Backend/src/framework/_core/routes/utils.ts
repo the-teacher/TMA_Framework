@@ -1,5 +1,5 @@
 import path from "path";
-import { getRouterCotrollersPath, getRouterScope } from "./routerCore";
+import { getRouterCotrollersPath, getRouterScope } from "./base";
 
 export const parseControllerString = (controllerActionString: string) => {
   const [controller, action] = controllerActionString.split("#");

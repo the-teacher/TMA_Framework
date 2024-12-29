@@ -9,7 +9,7 @@ import {
   getRouter,
   setRouterCotrollersPath,
   resetRouter,
-  routeScope,
+  routeScope as scope,
 } from "../index";
 
 describe("Routes", () => {
@@ -52,7 +52,7 @@ describe("Routes", () => {
 
   describe("Scoped routes", () => {
     beforeEach(() => {
-      routeScope("admin", () => {
+      scope("admin", () => {
         get("show", "admin#showAction");
         post("update", "admin#updateAction");
       });

@@ -14,8 +14,8 @@ export const getRouter = () => {
 
 export const resetRouter = () => {
   globalRouter = null;
-  controllersPath = "../controllers";
   currentScope = null;
+  controllersPath = "../controllers";
 };
 
 export const setRouterCotrollersPath = (path: string) =>
