@@ -1,4 +1,4 @@
-# `FrameworkJS` Router
+# `MiniframeJS/Router`
 
 A simple yet powerful routing solution for `Express.js` applications that provides a clean and intuitive way to organize routes and controllers.
 
