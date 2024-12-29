@@ -83,13 +83,10 @@ import {
   routeScope as scope,
 } from "@framework-core/routes";
 
-// Define scoped routes
 scope("admin", () => {
-  // Define GET and POST routes
   get("/users", "users#show");
   post("/users", "users#update");
 
-  // Define GET and POST routes
   get("/posts", "posts#show");
   post("/posts", "posts#update");
 });
