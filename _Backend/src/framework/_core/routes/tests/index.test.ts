@@ -9,47 +9,77 @@ import {
   getRouter,
   setRouterCotrollersPath,
   resetRouter,
+  routeScope,
 } from "../index";
 
 describe("Routes", () => {
-  beforeAll(() => {
+  beforeEach(() => {
+    resetRouter();
     setRouterCotrollersPath(path.join(__dirname, "./test_controllers"));
-
-    root("test#indexAction");
-
-    get("/get", "test#getAction");
-    post("/post", "test#postAction");
   });
 
-  test("should return the correct response for the root route", async () => {
-    const app = express();
-    app.use(getRouter());
+  describe("Basic routes", () => {
+    beforeEach(() => {
+      root("test#indexAction");
+      get("/get", "test#getAction");
+      post("/post", "test#postAction");
+    });
 
-    const response = await request(app).get("/");
-    expect(response.text).toEqual("Hello Index!");
+    test("should return the correct response for the root route", async () => {
+      const app = express();
+      app.use(getRouter());
+
+      const response = await request(app).get("/");
+      expect(response.text).toBe("Hello Index!");
+    });
+
+    test("should return the correct response for the GET route", async () => {
+      const app = express();
+      app.use(getRouter());
+
+      const response = await request(app).get("/get");
+      expect(response.text).toBe("Hello Get!");
+    });
+
+    test("should return the correct response for the POST route", async () => {
+      const app = express();
+      app.use(getRouter());
+
+      const response = await request(app).post("/post");
+      expect(response.text).toBe("Hello Post!");
+    });
   });
 
-  test("should return the correct response for the GET /get route", async () => {
-    const app = express();
-    app.use(getRouter());
+  describe("Scoped routes", () => {
+    beforeEach(() => {
+      routeScope("admin", () => {
+        get("show", "admin#showAction");
+        post("update", "admin#updateAction");
+      });
+    });
 
-    const response = await request(app).get("/get");
-    expect(response.text).toEqual("Hello Get!");
-  });
+    test("should return correct response for scoped GET route", async () => {
+      const app = express();
+      app.use(getRouter());
 
-  test("should return the correct response for the POST /post route", async () => {
-    const app = express();
-    app.use(getRouter());
+      const response = await request(app).get("/admin/show");
+      expect(response.text).toBe("Admin Show!");
+    });
 
-    const response = await request(app).post("/post");
-    expect(response.text).toEqual("Hello Post!");
-  });
+    test("should return correct response for scoped POST route", async () => {
+      const app = express();
+      app.use(getRouter());
 
-  test("should return 404 for an invalid route", async () => {
-    const app = express();
-    app.use(getRouter());
+      const response = await request(app).post("/admin/update");
+      expect(response.text).toBe("Admin Update!");
+    });
 
-    const response = await request(app).get("/invalid");
-    expect(response.status).toEqual(404);
+    test("should return 404 for invalid scoped route", async () => {
+      const app = express();
+      app.use(getRouter());
+
+      const response = await request(app).get("/admin/invalid");
+      expect(response.status).toBe(404);
+    });
   });
 });

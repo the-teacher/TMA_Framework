@@ -1,5 +1,5 @@
 import path from "path";
-import { getRouterCotrollersPath } from "./routerCore";
+import { getRouterCotrollersPath, getRouterScope } from "./routerCore";
 
 export const parseControllerString = (controllerActionString: string) => {
   const [controller, action] = controllerActionString.split("#");
@@ -14,8 +14,24 @@ export const parseControllerString = (controllerActionString: string) => {
 export const requireController = (controllerPath: string) =>
   require(controllerPath);
 
-export const buildControllerPath = (controllerName: string) =>
-  path.join(getRouterCotrollersPath(), `${controllerName}Controller`);
+export const buildControllerPath = (controllerName: string) => {
+  const scope = getRouterScope();
+
+  if (controllerName.includes("/")) {
+    return path.join(getRouterCotrollersPath(), `${controllerName}Controller`);
+  }
+
+  // If we have active scope, look for controller in scope directory
+  if (scope) {
+    return path.join(
+      getRouterCotrollersPath(),
+      scope,
+      `${controllerName}Controller`
+    );
+  }
+
+  return path.join(getRouterCotrollersPath(), `${controllerName}Controller`);
+};
 
 export const loadController = (controllerName: string, action: string) => {
   const controllerPath = buildControllerPath(controllerName);

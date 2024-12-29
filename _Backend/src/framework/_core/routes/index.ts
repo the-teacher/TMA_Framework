@@ -1,8 +1,10 @@
+import { Router } from "express";
 import {
   getRouter,
   getRouterCotrollersPath,
   setRouterCotrollersPath,
   resetRouter,
+  routeScope,
 } from "./routerCore";
 
 import { parseControllerString, loadController } from "./utils";
@@ -22,7 +24,8 @@ export const get = (urlPath: string, controllerAction: string) => {
       ? parseControllerString(controllerAction)
       : controllerAction;
 
-  getRouter().get(urlPath, loadController(controller, action));
+  const normalizedPath = urlPath.startsWith("/") ? urlPath.slice(1) : urlPath;
+  getRouter().get(`/${normalizedPath}`, loadController(controller, action));
 };
 
 export const post = (urlPath: string, controllerAction: string) => {
@@ -31,7 +34,8 @@ export const post = (urlPath: string, controllerAction: string) => {
       ? parseControllerString(controllerAction)
       : controllerAction;
 
-  getRouter().post(urlPath, loadController(controller, action));
+  const normalizedPath = urlPath.startsWith("/") ? urlPath.slice(1) : urlPath;
+  getRouter().post(`/${normalizedPath}`, loadController(controller, action));
 };
 
 export {
@@ -39,4 +43,5 @@ export {
   getRouterCotrollersPath,
   setRouterCotrollersPath,
   resetRouter,
+  routeScope,
 };
